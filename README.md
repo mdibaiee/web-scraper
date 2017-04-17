@@ -25,7 +25,7 @@ Now you are ready to execute the script:
 
 ```
 python index.py test_websites
-                # path to your file ^
+                # ^ path to your file
 ```
 
 To see available options, try `python index.py -h`.

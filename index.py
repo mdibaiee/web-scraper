@@ -31,9 +31,9 @@ for host in sites:
     images_dir = os.path.join(base_dir, 'images')
 
     if not os.path.isdir(base_dir):
-        os.mkdirs(base_dir)
+        os.makedirs(base_dir)
     if not os.path.isdir(images_dir):
-        os.mkdirs(images_dir)
+        os.makedirs(images_dir)
 
     def scrape(url, depth=0):
         if args.depth is not None and depth > args.depth: return

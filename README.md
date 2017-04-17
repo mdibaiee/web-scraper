@@ -28,4 +28,6 @@ python index.py test_websites
                 # ^ path to your file
 ```
 
+After the script is done with it's job, you can find the results in `results/<website_hostname>` folder.
+
 To see available options, try `python index.py -h`.

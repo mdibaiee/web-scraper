@@ -7,6 +7,7 @@ import argparse
 from urllib.parse import urlparse, urljoin
 from csv import DictWriter
 from helpers import to_absolute
+import time
 
 tags = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'li', 'span', 'a', 'img']
 
@@ -14,6 +15,7 @@ parser = argparse.ArgumentParser(description='Web scraper')
 parser.add_argument('file', help='path to file containing target websites, one line for each')
 parser.add_argument('--depth', type=int, help='how deep should the scraper follow links')
 parser.add_argument('--no-image', help='do not download images', action='store_true')
+parser.add_argument('--delay', help='delay between requests in seconds, use to avoid being treated as an attacker', type=float)
 
 args = parser.parse_args()
 
@@ -41,6 +43,8 @@ for host in sites:
         t = url.geturl()
 
         if t in visited: return
+
+        print(t)
 
         html = requests.get(t).text
         visited.append(t)
@@ -81,6 +85,8 @@ for host in sites:
 
         for link in queue:
             queue.remove(link)
+            if args.delay is not None:
+                time.sleep(args.delay)
             scrape(link, depth=depth + 1)
                         
     scrape(main)

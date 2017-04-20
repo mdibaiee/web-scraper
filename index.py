@@ -23,7 +23,6 @@ with open(path) as f:
     sites = [a.replace('\n', '') for a in f.readlines()]
 
 for host in sites:
-    data = []
     visited = []
     queue = []
 
@@ -37,6 +36,7 @@ for host in sites:
         os.makedirs(images_dir)
 
     def scrape(url, depth=0):
+        data = []
         if args.depth is not None and depth > args.depth: return
 
         t = url.geturl()
@@ -83,7 +83,7 @@ for host in sites:
                     queue.insert(0, p)
             
 
-        write_results(main, data)
+        write_results(main, data, first=depth == 0)
 
         for link in queue:
             queue.remove(link)

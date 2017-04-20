@@ -16,10 +16,12 @@ def to_absolute(url, host):
 
     return p
         
-def write_results(main, data):
-    with open(os.path.join('results', main.netloc, 'texts.csv'), 'w') as f:
+def write_results(main, data, first=False):
+    with open(os.path.join('results', main.netloc, 'texts.csv'), 'w' if first else 'a') as f:
             w = DictWriter(f, fieldnames=['page', 'tag', 'text', 'link', 'image'])
 
-            w.writeheader()
+            if first:
+                w.writeheader()
+
             w.writerows(data)
 

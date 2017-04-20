@@ -1,4 +1,6 @@
 from urllib.parse import urlparse, urlunparse, urljoin
+import os
+from csv import DictWriter
 
 def to_absolute(url, host):
     if url == '/': return host
@@ -14,4 +16,10 @@ def to_absolute(url, host):
 
     return p
         
+def write_results(main, data):
+    with open(os.path.join('results', main.netloc, 'texts.csv'), 'w') as f:
+            w = DictWriter(f, fieldnames=['page', 'tag', 'text', 'link', 'image'])
+
+            w.writeheader()
+            w.writerows(data)
 

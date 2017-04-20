@@ -5,8 +5,7 @@ import os
 import shutil
 import argparse
 from urllib.parse import urlparse, urljoin
-from csv import DictWriter
-from helpers import to_absolute
+from helpers import to_absolute, write_results
 import time
 
 tags = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'li', 'span', 'a', 'img']
@@ -82,6 +81,9 @@ for host in sites:
                 p = to_absolute(href, host)
                 if p and p.netloc == main.netloc:
                     queue.insert(0, p)
+            
+
+        write_results(main, data)
 
         for link in queue:
             queue.remove(link)
@@ -90,10 +92,3 @@ for host in sites:
             scrape(link, depth=depth + 1)
                         
     scrape(main)
-
-    with open(os.path.join('results', main.netloc, 'texts.csv'), 'w') as f:
-            w = DictWriter(f, fieldnames=['page', 'tag', 'text', 'link', 'image'])
-
-            w.writeheader()
-            w.writerows(data)
-

@@ -79,7 +79,7 @@ for host in sites:
             
             if href and href != '/':
                 p = to_absolute(href, host)
-                if p and p.netloc == main.netloc:
+                if p and p.netloc == main.netloc and p.geturl() not in visited:
                     queue.insert(0, p)
             
 
